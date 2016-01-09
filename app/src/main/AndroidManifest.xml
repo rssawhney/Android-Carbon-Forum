@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lincanbin.carbonforum">
+    package="com.rssawhney.delhicleanair">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".application.CarbonForumApplication"
+        android:name="com.rssawhney.delhicleanair.application.CarbonForumApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/mybackupscheme"
         android:fullBackupOnly="true"
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".IndexActivity"
+            android:name="com.rssawhney.delhicleanair.IndexActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,68 +28,68 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.rssawhney.delhicleanair.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lincanbin.carbonforum.IndexActivity" />
+                android:value="com.rssawhney.delhicleanair.IndexActivity" />
         </activity>
         <activity
-            android:name=".TopicActivity"
+            android:name="com.rssawhney.delhicleanair.TopicActivity"
             android:label="@string/title_activity_topic"
-            android:parentActivityName=".IndexActivity"
+            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lincanbin.carbonforum.IndexActivity" />
+                android:value="com.rssawhney.delhicleanair.IndexActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.rssawhney.delhicleanair.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".IndexActivity"
+            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lincanbin.carbonforum.IndexActivity" />
+                android:value="com.rssawhney.delhicleanair.IndexActivity" />
         </activity>
 
         <service
-            android:name=".service.PushService"
+            android:name="com.rssawhney.delhicleanair.service.PushService"
             android:exported="false"></service>
 
-        <activity android:name=".ReplyActivity"></activity>
+        <activity android:name="com.rssawhney.delhicleanair.ReplyActivity"></activity>
 
         <service
-            android:name=".service.ReplyService"
+            android:name="com.rssawhney.delhicleanair.service.ReplyService"
             android:exported="false"></service>
 
         <activity
-            android:name=".NotificationsActivity"
+            android:name="com.rssawhney.delhicleanair.NotificationsActivity"
             android:label="@string/title_activity_notifications"
-            android:parentActivityName=".IndexActivity"
+            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lincanbin.carbonforum.IndexActivity" />
+                android:value="com.rssawhney.delhicleanair.IndexActivity" />
         </activity>
-        <activity android:name=".NewActivity"></activity>
+        <activity android:name="com.rssawhney.delhicleanair.NewActivity"></activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.rssawhney.delhicleanair.RegisterActivity"
             android:label="@string/title_activity_register"
-            android:parentActivityName=".IndexActivity">
+            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lincanbin.carbonforum.IndexActivity" />
+                android:value="com.rssawhney.delhicleanair.IndexActivity" />
         </activity>
 
         <service
-            android:name=".service.NewService"
+            android:name="com.rssawhney.delhicleanair.service.NewService"
             android:exported="false" />
 
-        <activity android:name=".AboutActivity"
+        <activity android:name="com.rssawhney.delhicleanair.AboutActivity"
             android:label="About"
-            android:parentActivityName=".IndexActivity">
+            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity">
             <meta-data
                 android:name="android.support.Parent_Activity"
                 android:value="com.lincanbin.carbonforum.IndexActivity" />
