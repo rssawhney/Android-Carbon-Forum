@@ -31,11 +31,12 @@ public class PushService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if(CarbonForumApplication.isLoggedIn()) {
+        if (CarbonForumApplication.isLoggedIn()) {
             getNotification();
         }
     }
-    private void getNotification(){
+
+    private void getNotification() {
         int sleepTime = 3000;
         final Map<String, String> parameter = new HashMap<>();
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -44,10 +45,10 @@ public class PushService extends IntentService {
 
         JSONObject jsonObject = HttpUtil.postRequest(getApplicationContext(), APIAddress.PUSH_SERVICE_URL, parameter, false, true);
         try {
-            if(jsonObject != null && jsonObject.getInt("Status") == 1){
+            if (jsonObject != null && jsonObject.getInt("Status") == 1) {
                 int newMessageNumber = jsonObject.getInt("NewMessage");
                 //请求成功，延长请求间隔
-                if(newMessageNumber > 0){
+                if (newMessageNumber > 0) {
                     //消息数量大于0，发送通知栏消息
                     NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     //跳转到通知页的intent
@@ -64,25 +65,25 @@ public class PushService extends IntentService {
                             .setContentIntent(mPendingIntent)
                             .setAutoCancel(true);
                     //有新通知的话才振动与响铃
-                    if(newMessageNumber != notificationsNumber){
+                    if (newMessageNumber != notificationsNumber) {
                         //设置振动
-                        if(mSharedPreferences.getBoolean("notifications_new_message_vibrate", true)){
+                        if (mSharedPreferences.getBoolean("notifications_new_message_vibrate", true)) {
                             builder.setLights(Color.BLUE, 500, 500);
-                            long[] pattern = {500,500,500,500,500};
+                            long[] pattern = {500, 500, 500, 500, 500};
                             builder.setVibrate(pattern);
                         }
                         //设置铃声
                         String ringtoneURI = mSharedPreferences.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound");
-                        if(!ringtoneURI.isEmpty()){
+                        if (!ringtoneURI.isEmpty()) {
                             //Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                            Uri alarmSound =  Uri.parse(ringtoneURI);
+                            Uri alarmSound = Uri.parse(ringtoneURI);
                             builder.setSound(alarmSound);
                         }
                     }
                     mNotificationManager.cancel(105);
                     if (Build.VERSION.SDK_INT >= 16) {
                         mNotificationManager.notify(105, builder.build());
-                    }else{
+                    } else {
                         mNotificationManager.notify(105, builder.getNotification());
                     }
                     //请求成功，延长请求间隔
@@ -97,22 +98,22 @@ public class PushService extends IntentService {
                     SharedPreferences.Editor cacheEditor = cacheSharedPreferences.edit();
                     cacheEditor.putString("notificationsNumber", Integer.toString(newMessageNumber));
                     cacheEditor.apply();
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 //请求失败，延长请求间隔
                 sleepTime = 30000;
             }
 
             Thread.sleep(sleepTime);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         boolean notifications_new_message = mSharedPreferences.getBoolean("notifications_new_message", false);
-        if(notifications_new_message) {
+        if (notifications_new_message) {
             startService(new Intent(this, PushService.class));
-        }else {
+        } else {
             stopSelf();
         }
     }

@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by 灿斌 on 5/17/2015.
  */
 public class TimeUtil {
-    public static String formatTime(Context context, long unixTimeStamp){
+    public static String formatTime(Context context, long unixTimeStamp) {
         long seconds = System.currentTimeMillis() / 1000 - unixTimeStamp;
         if (seconds < 2592000) {
             // 小于30天如下显示
@@ -28,7 +28,7 @@ public class TimeUtil {
             }
         } else {
             // 大于30天直接显示日期
-            Date nowTime = new Date(unixTimeStamp*1000);
+            Date nowTime = new Date(unixTimeStamp * 1000);
             return DateFormat.getDateInstance().format(nowTime);
         }
     }

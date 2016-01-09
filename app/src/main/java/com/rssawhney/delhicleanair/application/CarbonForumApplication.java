@@ -23,7 +23,7 @@ public class CarbonForumApplication extends Application {
     public static SharedPreferences userInfo;
     public static SharedPreferences cacheSharedPreferences;
 
-    public static Boolean isLoggedIn(){
+    public static Boolean isLoggedIn() {
         return Integer.parseInt(userInfo.getString("UserID", "0")) > 0;
     }
 

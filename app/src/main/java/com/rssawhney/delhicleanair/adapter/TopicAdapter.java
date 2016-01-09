@@ -23,11 +23,13 @@ import java.util.Map;
 /**
  * Created by 灿斌 on 5/14/2015.
  */
-public class TopicAdapter extends RecyclerView.Adapter{
+public class TopicAdapter extends RecyclerView.Adapter {
     private Context context;
     private LayoutInflater layoutInflater;
+
     public interface OnRecyclerViewListener {
         void onItemClick(int position);
+
         boolean onItemLongClick(int position);
     }
 
@@ -38,12 +40,14 @@ public class TopicAdapter extends RecyclerView.Adapter{
     }
 
     private static final String TAG = TopicAdapter.class.getSimpleName();
-    private List<Map<String,Object>> list;
-    public TopicAdapter(Context context){
+    private List<Map<String, Object>> list;
+
+    public TopicAdapter(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
-    public void setData(List<Map<String,Object>> list) {
+
+    public void setData(List<Map<String, Object>> list) {
         this.list = list;
     }
 
@@ -60,7 +64,7 @@ public class TopicAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         final topicViewHolder holder = (topicViewHolder) viewHolder;
         holder.position = i;
-        Map<String,Object> topic = list.get(i);
+        Map<String, Object> topic = list.get(i);
         holder.Title.setText(Html.fromHtml(topic.get("Topic").toString()).toString());
         holder.Description.setText(topic.get("UserName").toString() + " · " + topic.get("LastName").toString());
         holder.Time.setText(TimeUtil.formatTime(context, Long.parseLong(topic.get("LastTime").toString())));
@@ -72,8 +76,7 @@ public class TopicAdapter extends RecyclerView.Adapter{
         return list.size();
     }
 
-    class topicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
-    {
+    class topicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public View rootView;
         ImageView Avatar;
         TextView Title;
@@ -87,13 +90,14 @@ public class TopicAdapter extends RecyclerView.Adapter{
             Title = (TextView) itemView.findViewById(R.id.title);
             Description = (TextView) itemView.findViewById(R.id.description);
             Time = (TextView) itemView.findViewById(R.id.time);
-            Avatar = (ImageView)itemView.findViewById(R.id.avatar);
+            Avatar = (ImageView) itemView.findViewById(R.id.avatar);
 
             rootView = itemView.findViewById(R.id.topic_item);
             //rootView.setClickable(true);
             rootView.setOnClickListener(this);
             rootView.setOnLongClickListener(this);
         }
+
         @Override
         //点击事件
         public void onClick(View v) {
@@ -105,14 +109,14 @@ public class TopicAdapter extends RecyclerView.Adapter{
             intent.putExtra("TargetPage", "1");
             context.startActivity(intent);
             //if (null != onRecyclerViewListener) {
-                //onRecyclerViewListener.onItemClick(position);
+            //onRecyclerViewListener.onItemClick(position);
             //}
         }
 
         @Override
         //长按事件
         public boolean onLongClick(View v) {
-            if(null != onRecyclerViewListener){
+            if (null != onRecyclerViewListener) {
                 return onRecyclerViewListener.onItemLongClick(position);
             }
             return false;

@@ -28,12 +28,14 @@ import java.util.Map;
 /**
  * Created by 灿斌 on 10/13/2015.
  */
-public class PostAdapter extends RecyclerView.Adapter{
+public class PostAdapter extends RecyclerView.Adapter {
     private Context context;
     private Boolean isNotification;
     private LayoutInflater layoutInflater;
+
     public interface OnRecyclerViewListener {
         void onItemClick(int position);
+
         boolean onItemLongClick(int position);
     }
 
@@ -44,13 +46,15 @@ public class PostAdapter extends RecyclerView.Adapter{
     }
 
     private static final String TAG = PostAdapter.class.getSimpleName();
-    private List<Map<String,Object>> list;
-    public PostAdapter(Context context, Boolean isNotification){
+    private List<Map<String, Object>> list;
+
+    public PostAdapter(Context context, Boolean isNotification) {
         this.context = context;
         this.isNotification = isNotification;
         layoutInflater = LayoutInflater.from(context);
     }
-    public void setData(List<Map<String,Object>> list) {
+
+    public void setData(List<Map<String, Object>> list) {
         this.list = list;
     }
 
@@ -67,10 +71,10 @@ public class PostAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         final postViewHolder holder = (postViewHolder) viewHolder;
         holder.position = i;
-        final Map<String,Object> post = list.get(i);
+        final Map<String, Object> post = list.get(i);
         holder.UserName.setText(post.get("UserName").toString());
         holder.Time.setText(TimeUtil.formatTime(context, Long.parseLong(post.get("PostTime").toString())));
-        if(!isNotification && !post.get("PostFloor").toString().equals("0"))
+        if (!isNotification && !post.get("PostFloor").toString().equals("0"))
             holder.PostFloor.setText("#" + post.get("PostFloor").toString());
         String contentHTML = "<style>" +
                 "a, a:link, a:visited, a:active {" +
@@ -90,7 +94,7 @@ public class PostAdapter extends RecyclerView.Adapter{
                 "   max-width: 100%;" +
                 "}" +
                 "</style>";
-        if(isNotification){
+        if (isNotification) {
             contentHTML += "<h3>" + post.get("Subject").toString() + "</h3>";
         }
         //String uploadDomain = APIAddress.WEBSITE_PATH.length() > 0 ? APIAddress.DOMAIN_NAME.replace(APIAddress.WEBSITE_PATH, "") : APIAddress.DOMAIN_NAME;
@@ -111,7 +115,7 @@ public class PostAdapter extends RecyclerView.Adapter{
                 context.startActivity(intent);
             }
         });
-        if(!CarbonForumApplication.isLoggedIn()){
+        if (!CarbonForumApplication.isLoggedIn()) {
             holder.ReplyButton.setVisibility(View.INVISIBLE);
         }
     }
@@ -121,8 +125,7 @@ public class PostAdapter extends RecyclerView.Adapter{
         return list.size();
     }
 
-    class postViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
-    {
+    class postViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public View cardView;
         View rootView;
         ImageView Avatar;
@@ -138,9 +141,9 @@ public class PostAdapter extends RecyclerView.Adapter{
 
             UserName = (TextView) itemView.findViewById(R.id.username);
             PostFloor = (TextView) itemView.findViewById(R.id.floor);
-            ReplyButton = (ImageView)itemView.findViewById(R.id.reply_button);
+            ReplyButton = (ImageView) itemView.findViewById(R.id.reply_button);
             Content = (CarbonWebView) itemView.findViewById(R.id.content);
-            if(Build.VERSION.SDK_INT <= 19) {
+            if (Build.VERSION.SDK_INT <= 19) {
                 // http://stackoverflow.com/questions/15133132/android-webview-doesnt-display-web-page-in-some-cases
                 Content.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             } else {
@@ -161,7 +164,7 @@ public class PostAdapter extends RecyclerView.Adapter{
             }
             */
             Time = (TextView) itemView.findViewById(R.id.time);
-            Avatar = (ImageView)itemView.findViewById(R.id.avatar);
+            Avatar = (ImageView) itemView.findViewById(R.id.avatar);
             cardView = itemView.findViewById(R.id.post_card_item);
             rootView = itemView.findViewById(R.id.post_item);
             rootView.setOnClickListener(this);
@@ -173,7 +176,7 @@ public class PostAdapter extends RecyclerView.Adapter{
         //点击事件
         public void onClick(View v) {
             //Toast.makeText(context, "onItemClick", Toast.LENGTH_SHORT).show();
-            if(isNotification) {
+            if (isNotification) {
                 Intent intent = new Intent(context, TopicActivity.class);
                 intent.putExtra("Topic", list.get(position).get("Subject").toString());
                 intent.putExtra("TopicID", list.get(position).get("TopicID").toString());
@@ -189,7 +192,7 @@ public class PostAdapter extends RecyclerView.Adapter{
         //长按事件
         public boolean onLongClick(View v) {
             //ReplyButton.callOnClick();
-            if(null != onRecyclerViewListener){
+            if (null != onRecyclerViewListener) {
                 return onRecyclerViewListener.onItemLongClick(position);
             }
             return false;

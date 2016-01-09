@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NotificationsActivity extends AppCompatActivity{
+public class NotificationsActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -81,6 +81,7 @@ public class NotificationsActivity extends AppCompatActivity{
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -119,7 +120,7 @@ public class NotificationsActivity extends AppCompatActivity{
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return  getString(R.string.notifications_mentioned_me);
+                    return getString(R.string.notifications_mentioned_me);
                 case 1:
                     return getString(R.string.notifications_replied_to_me);
             }
@@ -130,7 +131,7 @@ public class NotificationsActivity extends AppCompatActivity{
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment{
+    public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -140,6 +141,7 @@ public class NotificationsActivity extends AppCompatActivity{
         private static SwipeRefreshLayout mSwipeRefreshLayout;
         private static RecyclerView mRecyclerView;
         private static PostAdapter mAdapter;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -199,6 +201,7 @@ public class NotificationsActivity extends AppCompatActivity{
             private SwipeRefreshLayout mSwipeRefreshLayout;
             private RecyclerView mRecyclerView;
             private PostAdapter mAdapter;
+
             public GetNotificationsTask(int type,
                                         Boolean loadFromCache,
                                         SwipeRefreshLayout mSwipeRefreshLayout,
@@ -213,10 +216,11 @@ public class NotificationsActivity extends AppCompatActivity{
                 this.mRecyclerView = mRecyclerView;
                 this.mAdapter = mAdapter;
             }
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                if(!loadFromCache) {
+                if (!loadFromCache) {
                     mSwipeRefreshLayout.post(new Runnable() {
                         @Override
                         public void run() {
@@ -230,14 +234,14 @@ public class NotificationsActivity extends AppCompatActivity{
             protected void onPostExecute(JSONObject jsonObject) {
                 super.onPostExecute(jsonObject);
                 //先保存缓存
-                if(jsonObject != null && !loadFromCache){
+                if (jsonObject != null && !loadFromCache) {
                     try {
                         SharedPreferences.Editor cacheEditor = CarbonForumApplication.cacheSharedPreferences.edit();
                         //cacheEditor.putString("notifications" + keyName + "Cache", jsonObject.toString(0));
                         cacheEditor.putString("notificationsMentionArrayCache", jsonObject.toString(0));
                         cacheEditor.putString("notificationsReplyArrayCache", jsonObject.toString(0));
                         cacheEditor.apply();
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -245,7 +249,7 @@ public class NotificationsActivity extends AppCompatActivity{
                 List<Map<String, Object>> list;
                 list = JSONUtil.jsonObject2List(jsonObject, keyName);
                 //防止异步任务未完成时，用户按下返回，Fragment被GC，造成NullPointer
-                if(mRecyclerView != null && mSwipeRefreshLayout !=null && mAdapter != null && rootView != null && getActivity() != null) {
+                if (mRecyclerView != null && mSwipeRefreshLayout != null && mAdapter != null && rootView != null && getActivity() != null) {
                     mSwipeRefreshLayout.setRefreshing(false);
                     if (list != null && !list.isEmpty()) {
                         mAdapter.setData(list);
@@ -255,19 +259,19 @@ public class NotificationsActivity extends AppCompatActivity{
                     }
                 }
                 //在提及我的的Tab中，从缓存中加载一次后，再从网络上更新一次
-                if(type == 1 && loadFromCache){
+                if (type == 1 && loadFromCache) {
                     new GetNotificationsTask(type, false, mSwipeRefreshLayout, mRecyclerView, mAdapter, 1).execute();
                 }
             }
 
             @Override
             protected JSONObject doInBackground(Void... params) {
-                if(loadFromCache){
+                if (loadFromCache) {
                     return JSONUtil.jsonString2Object(
                             CarbonForumApplication.cacheSharedPreferences.
                                     getString("notifications" + keyName + "Cache", "{\"Status\":1, \"" + keyName + "\":[]}")
                     );
-                }else {
+                } else {
                     return HttpUtil.postRequest(getActivity(), APIAddress.NOTIFICATIONS_URL, new HashMap<String, String>(), false, true);
                 }
             }
