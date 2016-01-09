@@ -92,7 +92,7 @@
             android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity">
             <meta-data
                 android:name="android.support.Parent_Activity"
-                android:value="com.lincanbin.carbonforum.IndexActivity" />
+                android:value="com.rssawhney.delhicleanair.IndexActivity" />
         </activity>
     </application>
 
