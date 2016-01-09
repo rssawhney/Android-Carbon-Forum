@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Delhi Clean Air Forum</string>
+    <string name="refresh">Refresh</string>
+    <string name="change_account">Change Account</string>
+    <string name="log_out">Log Out</string>
+    <string name="action_search">Search</string>
+    <string name="action_share">Share</string>
+    <string name="avatar">Avatar</string>
+    <string name="network_error">Network Error</string>
+    <string name="about_us">About Us</string>
+    <string name="about">Delhi Clean Air Forum is an initiative taken by the Research Innovation team of Sri Guru Gobind Singh College of Commerce, University of Delhi. The project is titled ‘Innovations towards a Sustainable World &amp; Impact of the Air Quality Crisis – A Comparative Study of Delhi, Beijing and London.’ The same team was awarded with the ‘Best Innovative Idea’ for their previous innovation project in 2014-2015 lot of 240 innovation projects allotted to 62 colleges of University of Delhi.
+
+Our project to combat air pollution aims at increasing awareness about causes, effects, ways to protect and tackle air pollution in Delhi, of groups most exposed and most responsible in order to decrease pollution and exposure or impact on those most exposed and vulnerable.
+
+We also want to promote and conduct applied research to find(small &amp; large scale) solutions helping to decrease air pollution or our exposure to it, to phrase advocacy messages for regulatory and enforcement measures to combat air pollution and to create awareness to initiate or support measures to combat air pollution and our exposure to it.</string>
+    <!--TimeUtil Start-->
+    <string name="just_now">top</string>
+    <string name="seconds_ago">seconds ago</string>
+    <string name="minutes_ago">minutes ago</string>
+    <string name="hours_ago">hours ago</string>
+    <string name="days_ago">days ago</string>
+    <!--TimeUtil End-->
+
+    <string name="title_activity_topic">Topic</string>
+</resources>
