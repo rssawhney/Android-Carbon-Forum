@@ -41,12 +41,12 @@ public class NewService extends IntentService {
         }
     }
 
-    private void newTopic(){
+    private void newTopic() {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         final Map<String, String> parameter = new HashMap<>();
-        String[] TagsArray= mTag.replace("，",",").split(",");
+        String[] TagsArray = mTag.replace("，", ",").split(",");
         parameter.put("Title", mTitle);
-        for(String mTagItem:TagsArray) {
+        for (String mTagItem : TagsArray) {
             parameter.put("Tag[]#" + mTagItem, mTagItem);
         }
         parameter.put("Content", mContent);
@@ -61,14 +61,14 @@ public class NewService extends IntentService {
                 .setOngoing(true);
         if (Build.VERSION.SDK_INT >= 16) {
             mNotificationManager.notify(102001, builder.build());
-        }else{
+        } else {
             mNotificationManager.notify(102001, builder.getNotification());
         }
         final JSONObject jsonObject = HttpUtil.postRequest(getApplicationContext(), APIAddress.NEW_URL, parameter, false, true);
         // 移除“发送中”通知
         mNotificationManager.cancel(102001);
         try {
-            if(jsonObject != null && jsonObject.getInt("Status") == 1) {
+            if (jsonObject != null && jsonObject.getInt("Status") == 1) {
                 //发帖成功，并跳转Activity
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(new Runnable() {
@@ -79,7 +79,7 @@ public class NewService extends IntentService {
                 });
                 //跳转Activity
                 Intent intent = new Intent(getApplicationContext(), TopicActivity.class);
-                intent.putExtra("Topic", mTitle );
+                intent.putExtra("Topic", mTitle);
                 intent.putExtra("TopicID", jsonObject.getString("TopicID"));
                 intent.putExtra("TargetPage", "1");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -104,27 +104,27 @@ public class NewService extends IntentService {
                         .setAutoCancel(true);
                 if (Build.VERSION.SDK_INT >= 16) {
                     mNotificationManager.notify(102003, failBuilder.build());
-                }else{
+                } else {
                     mNotificationManager.notify(102003, failBuilder.getNotification());
                 }
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(jsonObject != null) {
+                        if (jsonObject != null) {
                             try {
                                 Toast.makeText(getApplicationContext(), jsonObject.getString("ErrorMessage"), Toast.LENGTH_SHORT).show();
-                            }catch(JSONException e){
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }else{
+                        } else {
                             Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
             }
-        }catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

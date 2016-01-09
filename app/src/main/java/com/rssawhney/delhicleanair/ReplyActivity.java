@@ -24,11 +24,12 @@ public class ReplyActivity extends AppCompatActivity {
     String defaultContent;
     String contentHTML;
     EditText mContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //取得启动该Activity的Intent对象
-        Intent mIntent =getIntent();
+        Intent mIntent = getIntent();
         //取出Intent中附加的数据
         mTopicID = mIntent.getStringExtra("TopicID");
         mPostID = mIntent.getStringExtra("PostID");
@@ -43,14 +44,14 @@ public class ReplyActivity extends AppCompatActivity {
         mContent.setFocusable(true);
         mContent.setFocusableInTouchMode(true);
         mContent.requestFocus();
-        InputMethodManager mInputManager = (InputMethodManager)mContent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager mInputManager = (InputMethodManager) mContent.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         mInputManager.showSoftInput(mContent, 0);
 
         if (mToolbar != null) {
             //mToolbar.setTitle(getString(R.string.title_activity_reply));
-            if(Integer.parseInt(mPostFloor) == 0){
+            if (Integer.parseInt(mPostFloor) == 0) {
                 mToolbar.setTitle(getString(R.string.title_activity_reply));
-            }else{
+            } else {
                 mToolbar.setTitle(getString(R.string.action_reply_to) + " @" + mUserName);
             }
             setSupportActionBar(mToolbar);
@@ -60,7 +61,7 @@ public class ReplyActivity extends AppCompatActivity {
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mContent.getText().toString().length() > 0) {
+                    if (mContent.getText().toString().length() > 0) {
                         MarkdownProcessor mMarkdownProcessor = new MarkdownProcessor();
                         int currentPostFloor = Integer.parseInt(mPostFloor);
                         if (currentPostFloor == 0) {
@@ -75,7 +76,7 @@ public class ReplyActivity extends AppCompatActivity {
                         intent.putExtra("Content", contentHTML);
                         startService(intent);
                         onBackPressed();
-                    }else{
+                    } else {
                         Snackbar.make(view, getString(R.string.content_empty), Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
@@ -84,6 +85,7 @@ public class ReplyActivity extends AppCompatActivity {
         }
         //TODO: 根据草稿恢复现场
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

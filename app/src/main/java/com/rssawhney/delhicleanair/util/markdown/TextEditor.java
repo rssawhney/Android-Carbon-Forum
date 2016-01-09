@@ -60,6 +60,7 @@ public class TextEditor {
 
     /**
      * Give up the contents of the TextEditor.
+     *
      * @return
      */
     @Override
@@ -93,6 +94,7 @@ public class TextEditor {
     /**
      * Same as replaceAll(String, String), but does not interpret
      * $1, $2 etc. in the replacement string.
+     *
      * @param regex
      * @param replacement
      * @return
@@ -142,6 +144,7 @@ public class TextEditor {
 
     /**
      * Convert tabs to spaces given the default tab width of 4 spaces.
+     *
      * @return
      */
     public TextEditor detabify() {
@@ -151,7 +154,7 @@ public class TextEditor {
     /**
      * Convert tabs to spaces.
      *
-     * @param tabWidth  Number of spaces per tab.
+     * @param tabWidth Number of spaces per tab.
      * @return
      */
     public TextEditor detabify(final int tabWidth) {
@@ -172,6 +175,7 @@ public class TextEditor {
 
     /**
      * Remove a number of spaces at the start of each line.
+     *
      * @param spaces
      * @return
      */
@@ -181,6 +185,7 @@ public class TextEditor {
 
     /**
      * Remove one tab width (4 spaces) from the start of each line.
+     *
      * @return
      */
     public TextEditor outdent() {
@@ -190,6 +195,7 @@ public class TextEditor {
     /**
      * Remove leading and trailing space from the start and end of the buffer.  Intermediate
      * lines are not affected.
+     *
      * @return
      */
     public TextEditor trim() {
@@ -199,6 +205,7 @@ public class TextEditor {
 
     /**
      * Introduce a number of spaces at the start of each line.
+     *
      * @param spaces
      * @return
      */
@@ -212,6 +219,7 @@ public class TextEditor {
 
     /**
      * Add a string to the end of the buffer.
+     *
      * @param s
      */
     public void append(CharSequence s) {
@@ -220,6 +228,7 @@ public class TextEditor {
 
     /**
      * Parse HTML tags, returning a Collection of HTMLToken objects.
+     *
      * @return
      */
     public Collection<HTMLToken> tokenizeHTML() {
@@ -265,6 +274,7 @@ public class TextEditor {
 
     /**
      * Add a string to the start of the first line of the buffer.
+     *
      * @param s
      */
     public void prepend(CharSequence s) {
@@ -273,6 +283,7 @@ public class TextEditor {
 
     /**
      * Find out whether the buffer is empty.
+     *
      * @return
      */
     public boolean isEmpty() {

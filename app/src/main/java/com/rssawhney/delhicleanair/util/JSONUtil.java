@@ -19,7 +19,7 @@ public class JSONUtil {
     public static List<Map<String, Object>> jsonObject2List(JSONObject jsonObject, String keyName) {
 
         List<Map<String, Object>> list = new ArrayList<>();
-        if(null != jsonObject){
+        if (null != jsonObject) {
             try {
                 JSONArray jsonArray = jsonObject.getJSONArray(keyName);
 
@@ -39,11 +39,12 @@ public class JSONUtil {
                 e.printStackTrace();
                 return null;
             }
-        }else{
+        } else {
             return null;
         }
     }
-    public static JSONObject jsonString2Object(String jsonString){
+
+    public static JSONObject jsonString2Object(String jsonString) {
         try {
             JSONTokener jsonParser = new JSONTokener(jsonString);
             return (JSONObject) jsonParser.nextValue();

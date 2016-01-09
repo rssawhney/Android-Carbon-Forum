@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-        mVerificationCodeImageView = (ImageView)  findViewById(R.id.verification_code_img);
+        mVerificationCodeImageView = (ImageView) findViewById(R.id.verification_code_img);
         mVerificationCodeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -112,7 +113,8 @@ public class LoginActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void refreshVerificationCode(){
+
+    private void refreshVerificationCode() {
         //接口回调的方法，完成验证码的异步读取与显示
         VerificationCode verificationCodeImage = new VerificationCode(this);
         verificationCodeImage.loadImage(new VerificationCode.ImageCallBack() {
@@ -249,14 +251,14 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(Void... params) {
-            return HttpUtil.postRequest(LoginActivity.this, APIAddress.LOGIN_URL,parameter, true, false);
+            return HttpUtil.postRequest(LoginActivity.this, APIAddress.LOGIN_URL, parameter, true, false);
         }
 
         @Override
         protected void onPostExecute(JSONObject result) {
             mAuthTask = null;
             showProgress(false);
-            if(result !=null) {
+            if (result != null) {
                 try {
                     //Log.v("JSON", result.toString());
                     if (result.getInt("Status") == 1) {
@@ -267,8 +269,8 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("UserExpirationTime", result.getString("UserExpirationTime"));
                         editor.putString("UserCode", result.getString("UserCode"));
 
-                        JSONObject userInfo =  JSONUtil.jsonString2Object(result.getString("UserInfo"));
-                        if(userInfo!=null){
+                        JSONObject userInfo = JSONUtil.jsonString2Object(result.getString("UserInfo"));
+                        if (userInfo != null) {
                             editor.putString("UserName", userInfo.getString("UserName"));
                             editor.putString("UserRoleID", userInfo.getString("UserRoleID"));
                             editor.putString("UserMail", userInfo.getString("UserMail"));
@@ -283,7 +285,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(LoginActivity.this, result.getString("ErrorMessage"), Toast.LENGTH_SHORT).show();
                         refreshVerificationCode();
-                        switch(result.getInt("ErrorCode")){
+                        switch (result.getInt("ErrorCode")) {
                             case 101001:
                             case 101003:
                                 mUsernameView.setError(result.getString("ErrorMessage"));
@@ -304,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 Snackbar.make(mLoginFormView, R.string.network_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
 

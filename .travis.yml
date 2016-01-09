@@ -2,12 +2,12 @@ language: android
 jdk:
   - oraclejdk8
 # Turn off caching to avoid any caching problems
-cache: false
+# cache: false
 # Use the Travis Container-Based Infrastructure
 sudo: false
-#branches:
-#  only:
-#    - master
+branches:
+ only:
+   - master
 
 android:
   components:
@@ -29,7 +29,7 @@ android:
 
 env:
   global:
-    - ADB_INSTALL_TIMEOUT=12 # minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=2 # minutes (2 minutes by default)
 
 
  # Emulator Management: Create, Start and Wait
@@ -43,5 +43,4 @@ before_script:
   #- adb shell input keyevent 82 &
 
 script:
-  - android list target
-  #- ./gradlew connectedAndroidTest -PdisablePreDex
+  - ./gradlew clean assembleDebug
