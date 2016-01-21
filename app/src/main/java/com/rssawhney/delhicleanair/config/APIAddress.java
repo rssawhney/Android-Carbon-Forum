@@ -6,9 +6,9 @@ public class APIAddress {
     public static final String API_SECRET = "b40484df0ad979d8ba7708d24c301c38"; //Application secret you set in ```config.php```
 
     //Debug
-    public static final String DOMAIN_NAME = "http://aircb.koding.io" + WEBSITE_PATH; // Main domain name
-    public static final String MOBILE_DOMAIN_NAME = "http://m.aircb.koding.io" + WEBSITE_PATH; // Domain name of mobile version
-    public static final String BASIC_API_URL = "http://api.aircb.koding.io" + WEBSITE_PATH; // Domain name of API
+    public static final String DOMAIN_NAME = "http://delhicleanairforum.tk" + WEBSITE_PATH; // Main domain name
+    public static final String MOBILE_DOMAIN_NAME = "http://m.delhicleanairforum.tk" + WEBSITE_PATH; // Domain name of mobile version
+    public static final String BASIC_API_URL = "http://api.delhicleanairforum.tk" + WEBSITE_PATH; // Domain name of API
 
 
     //Real
