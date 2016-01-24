@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 return false;
             }
         });
-        mVerificationCodeImageView = (ImageView)  findViewById(R.id.verification_code_img);
+        mVerificationCodeImageView = (ImageView) findViewById(R.id.verification_code_img);
         mVerificationCodeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
         refreshVerificationCode();
-        
+
         mPasswordView = (EditText) findViewById(R.id.password);
 
         Button mRegisterButton = (Button) findViewById(R.id.register_button);
@@ -121,8 +121,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mRegisterFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.register_progress);
     }
-    
-    private void refreshVerificationCode(){
+
+    private void refreshVerificationCode() {
         //接口回调的方法，完成验证码的异步读取与显示
         VerificationCode verificationCodeImage = new VerificationCode(this);
         verificationCodeImage.loadImage(new VerificationCode.ImageCallBack() {
@@ -132,6 +132,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
     }
+
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -367,7 +368,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         protected void onPostExecute(JSONObject result) {
             mAuthTask = null;
             showProgress(false);
-            if(result !=null) {
+            if (result != null) {
                 try {
                     //Log.v("JSON", result.toString());
                     if (result.getInt("Status") == 1) {
@@ -378,8 +379,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                         editor.putString("UserExpirationTime", result.getString("UserExpirationTime"));
                         editor.putString("UserCode", result.getString("UserCode"));
 
-                        JSONObject userInfo =  JSONUtil.jsonString2Object(result.getString("UserInfo"));
-                        if(userInfo!=null){
+                        JSONObject userInfo = JSONUtil.jsonString2Object(result.getString("UserInfo"));
+                        if (userInfo != null) {
                             editor.putString("UserName", userInfo.getString("UserName"));
                             editor.putString("UserRoleID", userInfo.getString("UserRoleID"));
                             editor.putString("UserMail", userInfo.getString("UserMail"));
@@ -394,7 +395,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                     } else {
                         Toast.makeText(RegisterActivity.this, result.getString("ErrorMessage"), Toast.LENGTH_SHORT).show();
                         refreshVerificationCode();
-                        switch(result.getInt("ErrorCode")){
+                        switch (result.getInt("ErrorCode")) {
                             case 104001:
                             case 104002:
                             case 104005:
@@ -416,7 +417,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 Snackbar.make(mRegisterFormView, R.string.network_error, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
 

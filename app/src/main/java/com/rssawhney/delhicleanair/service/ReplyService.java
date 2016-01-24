@@ -53,14 +53,14 @@ public class ReplyService extends IntentService {
                 .setOngoing(true);
         if (Build.VERSION.SDK_INT >= 16) {
             mNotificationManager.notify(102001, builder.build());
-        }else{
+        } else {
             mNotificationManager.notify(102001, builder.getNotification());
         }
         final JSONObject jsonObject = HttpUtil.postRequest(getApplicationContext(), APIAddress.REPLY_URL, parameter, false, true);
         // 移除“回复中”通知
         mNotificationManager.cancel(102001);
         try {
-            if(jsonObject != null && jsonObject.getInt("Status") == 1) {
+            if (jsonObject != null && jsonObject.getInt("Status") == 1) {
                 //回帖成功，并发送广播告知成功
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(new Runnable() {
@@ -91,7 +91,7 @@ public class ReplyService extends IntentService {
                         .setAutoCancel(true);
                 if (Build.VERSION.SDK_INT >= 16) {
                     mNotificationManager.notify(102003, failBuilder.build());
-                }else{
+                } else {
                     mNotificationManager.notify(102003, failBuilder.getNotification());
                 }
                 Handler handler = new Handler(Looper.getMainLooper());
@@ -99,20 +99,20 @@ public class ReplyService extends IntentService {
                     @Override
                     public void run() {
 
-                        if(jsonObject != null) {
+                        if (jsonObject != null) {
                             try {
                                 Toast.makeText(getApplicationContext(), jsonObject.getString("ErrorMessage"), Toast.LENGTH_SHORT).show();
-                            }catch(JSONException e){
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }else{
+                        } else {
                             Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
             }
-        }catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

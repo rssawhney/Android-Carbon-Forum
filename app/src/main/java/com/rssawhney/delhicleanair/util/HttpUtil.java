@@ -51,7 +51,7 @@ public class HttpUtil {
             httpURLConnection.setRequestProperty("Accept-Charset", charset);
             httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             String cookie = getCookie(context);
-            if(enableSession && cookie != null){
+            if (enableSession && cookie != null) {
                 httpURLConnection.setRequestProperty("Cookie", cookie);
             }
             InputStream inputStream = null;
@@ -60,7 +60,7 @@ public class HttpUtil {
             StringBuilder resultBuffer = new StringBuilder();
             String tempLine = null;
 
-            switch (httpURLConnection.getResponseCode()){
+            switch (httpURLConnection.getResponseCode()) {
                 case 200:
                 case 301:
                 case 302:
@@ -70,17 +70,17 @@ public class HttpUtil {
                     Log.d("Configuration error", "API_KEY or API_SECRET or system time error.");
                     return null;
                 case 401:
-                    context.getSharedPreferences("UserInfo",Activity.MODE_PRIVATE).edit().clear().apply();
+                    context.getSharedPreferences("UserInfo", Activity.MODE_PRIVATE).edit().clear().apply();
                     Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                     break;
                 case 500:
-                    Log.d("Get Result","Code 500");
+                    Log.d("Get Result", "Code 500");
                     return null;
                 default:
                     throw new Exception("HTTP Request is not success, Response code is " + httpURLConnection.getResponseCode());
             }
-            if(enableSession) {
+            if (enableSession) {
                 saveCookie(context, httpURLConnection);
             }
             try {
@@ -94,9 +94,9 @@ public class HttpUtil {
 
                 String getResult = resultBuffer.toString();
                 Log.d("Get URL : ", url);
-                Log.d("Get Result",getResult);
+                Log.d("Get Result", getResult);
                 return JSONUtil.jsonString2Object(getResult);
-            }  catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             } finally {
@@ -120,7 +120,7 @@ public class HttpUtil {
 
     // post方法访问服务器，返回json对象
     public static JSONObject postRequest(Context context, String url, Map<String, String> parameterMap, Boolean enableSession, Boolean loginRequired) {
-        try{
+        try {
             Log.d("POST URL : ", url);
             String parameterString = buildParameterString(parameterMap, loginRequired);
             Log.d("POST parameter", parameterString);
@@ -146,9 +146,9 @@ public class HttpUtil {
             httpURLConnection.setHostnameVerifier(hostnameVerifier);
             */
             httpURLConnection.setConnectTimeout(15000);
-            if(url.equals(APIAddress.PUSH_SERVICE_URL)) {
+            if (url.equals(APIAddress.PUSH_SERVICE_URL)) {
                 httpURLConnection.setReadTimeout(360000);
-            }else{
+            } else {
                 httpURLConnection.setReadTimeout(25000);
             }
             // 设置是否向httpUrlConnection输出，因为这个是post请求，参数要放在
@@ -171,7 +171,7 @@ public class HttpUtil {
             httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpURLConnection.setRequestProperty("Content-Length", String.valueOf(parameterString.length()));
             String cookie = getCookie(context);
-            if(enableSession && cookie != null){
+            if (enableSession && cookie != null) {
                 httpURLConnection.setRequestProperty("Cookie", cookie);
             }
             /*
@@ -189,7 +189,7 @@ public class HttpUtil {
             outputStreamWriter.close();
             outputStream.close();
 
-            switch (httpURLConnection.getResponseCode()){
+            switch (httpURLConnection.getResponseCode()) {
                 case HttpURLConnection.HTTP_OK:
                 case 301:
                 case 302:
@@ -199,18 +199,18 @@ public class HttpUtil {
                     Log.d("Configuration error", "API_KEY or API_SECRET or system time error.");
                     return null;
                 case 401:
-                    Log.d("Post Result","Code 401");
+                    Log.d("Post Result", "Code 401");
                     CarbonForumApplication.userInfo.edit().clear().apply();
                     Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                     break;
                 case 500:
-                    Log.d("Post Result","Code 500");
+                    Log.d("Post Result", "Code 500");
                     return null;
                 default:
                     throw new Exception("HTTP Request is not success, Response code is " + httpURLConnection.getResponseCode());
             }
-            if(enableSession) {
+            if (enableSession) {
                 saveCookie(context, httpURLConnection);
             }
             InputStream inputStream = httpURLConnection.getInputStream();
@@ -227,7 +227,7 @@ public class HttpUtil {
 
             //httpURLConnection.disconnect();//断开连接
             String postResult = resultBuffer.toString();
-            Log.d("Post Result",postResult);
+            Log.d("Post Result", postResult);
             JSONTokener jsonParser = new JSONTokener(postResult);
             return (JSONObject) jsonParser.nextValue();
 
@@ -239,11 +239,11 @@ public class HttpUtil {
     }
 
     //获取之前保存的Cookie
-    public static String getCookie(Context context){
-        SharedPreferences mySharedPreferences= context.getSharedPreferences("Session",
+    public static String getCookie(Context context) {
+        SharedPreferences mySharedPreferences = context.getSharedPreferences("Session",
                 Activity.MODE_PRIVATE);
-        try{
-            return  mySharedPreferences.getString("Cookie", "");
+        try {
+            return mySharedPreferences.getString("Cookie", "");
         } catch (ClassCastException e) {
             e.printStackTrace();
             return null;
@@ -251,10 +251,10 @@ public class HttpUtil {
     }
 
     //保存Cookie
-    public static Boolean saveCookie(Context context, URLConnection connection){
+    public static Boolean saveCookie(Context context, URLConnection connection) {
         //获取Cookie
-        String headerName=null;
-        for (int i=1; (headerName = connection.getHeaderFieldKey(i))!=null; i++) {
+        String headerName = null;
+        for (int i = 1; (headerName = connection.getHeaderFieldKey(i)) != null; i++) {
             if (headerName.equals("Set-Cookie")) {
                 String cookie = connection.getHeaderField(i);
                 //将Cookie保存起来
@@ -269,7 +269,7 @@ public class HttpUtil {
         return false;
     }
 
-    public static String buildParameterString(Map<String, String> parameterMap, Boolean loginRequired){
+    public static String buildParameterString(Map<String, String> parameterMap, Boolean loginRequired) {
         /* Translate parameter map to parameter date string */
         StringBuilder parameterBuffer = new StringBuilder();
         String currentTimeStamp = String.valueOf(System.currentTimeMillis() / 1000);
@@ -283,7 +283,7 @@ public class HttpUtil {
                 .append("SValue").append("=")
                 .append(MD5Util.md5(APIAddress.API_KEY + APIAddress.API_SECRET + currentTimeStamp));
 
-        if(loginRequired && CarbonForumApplication.isLoggedIn()){
+        if (loginRequired && CarbonForumApplication.isLoggedIn()) {
             parameterBuffer
                     .append("&")
                     .append("AuthUserID").append("=")
@@ -305,7 +305,7 @@ public class HttpUtil {
                 if (parameterMap.get(key) != null) {
                     try {
                         value = URLEncoder.encode(parameterMap.get(key), "UTF-8");
-                    }catch(UnsupportedEncodingException e){
+                    } catch (UnsupportedEncodingException e) {
                         value = parameterMap.get(key);
                         e.printStackTrace();
                     }

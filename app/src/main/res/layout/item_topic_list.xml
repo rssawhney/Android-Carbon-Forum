@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright (C) 2014 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,70 +13,82 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    app:rv_color="@color/colorPrimary"
+    app:rv_rippleDuration="300">
+
     <LinearLayout
+        android:id="@+id/topic_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:duplicateParentState="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/topic_item"
-        android:paddingTop="16dp"
+        android:minHeight="?android:listPreferredItemHeight"
+        android:orientation="horizontal"
         android:paddingBottom="16dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:minHeight="?android:listPreferredItemHeight"
-        android:orientation="horizontal"
-        android:clickable="true"
-        android:focusable="true">
+        android:paddingTop="16dp"
+        android:theme="@android:style/Widget.ListView">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:contentDescription="@string/avatar"
-            android:src="@drawable/ic_perm_identity_24dp"/>
+            android:src="@drawable/ic_perm_identity_24dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:minHeight="56dp"
             android:mode="twoLine"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_text_view"
                 android:layout_marginLeft="@dimen/margin_text_view"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:layout_marginStart="@dimen/margin_text_view"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <RelativeLayout
-                android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginStart="@dimen/margin_text_view"
                 android:layout_marginLeft="@dimen/margin_text_view"
-                android:layout_marginTop="@dimen/margin_text_view">
+                android:layout_marginStart="@dimen/margin_text_view"
+                android:layout_marginTop="@dimen/margin_text_view"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/description"
-                    android:ellipsize="end"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    android:ellipsize="end"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
                 <TextView
                     android:id="@+id/time"
-                    android:gravity="end"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignBottom="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    android:layout_alignBottom="@+id/description"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="end"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</com.andexert.library.RippleView>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rssawhney.delhicleanair" >
+    package="com.rssawhney.delhicleanair">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -11,16 +12,16 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="com.rssawhney.delhicleanair.application.CarbonForumApplication"
+        android:name=".application.CarbonForumApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/mybackupscheme"
         android:fullBackupOnly="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.rssawhney.delhicleanair.IndexActivity"
-            android:label="@string/app_name" >
+            android:name=".IndexActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,68 +29,72 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.rssawhney.delhicleanair.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rssawhney.delhicleanair.IndexActivity" />
+                android:value="com.lincanbin.carbonforum.IndexActivity" />
         </activity>
         <activity
-            android:name="com.rssawhney.delhicleanair.TopicActivity"
+            android:name=".TopicActivity"
             android:label="@string/title_activity_topic"
-            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity"
+            android:parentActivityName=".IndexActivity"
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rssawhney.delhicleanair.IndexActivity" />
+                android:value=".IndexActivity" />
         </activity>
         <activity
-            android:name="com.rssawhney.delhicleanair.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity"
+            android:parentActivityName=".IndexActivity"
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rssawhney.delhicleanair.IndexActivity" />
+                android:value=".IndexActivity" />
         </activity>
 
         <service
-            android:name="com.rssawhney.delhicleanair.service.PushService"
-            android:exported="false" >
-        </service>
-
-        <activity android:name="com.rssawhney.delhicleanair.ReplyActivity" >
-        </activity>
-
-        <service
-            android:name="com.rssawhney.delhicleanair.service.ReplyService"
-            android:exported="false" >
-        </service>
-
-        <activity
-            android:name="com.rssawhney.delhicleanair.NotificationsActivity"
-            android:label="@string/title_activity_notifications"
-            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity"
-            android:theme="@style/AppTheme" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rssawhney.delhicleanair.IndexActivity" />
-        </activity>
-        <activity android:name="com.rssawhney.delhicleanair.NewActivity" >
-        </activity>
-        <activity
-            android:name="com.rssawhney.delhicleanair.RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:parentActivityName="com.rssawhney.delhicleanair.IndexActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rssawhney.delhicleanair.IndexActivity" />
-        </activity>
-
-        <service
-            android:name="com.rssawhney.delhicleanair.service.NewService"
+            android:name=".service.PushService"
             android:exported="false"></service>
+
+        <activity android:name=".ReplyActivity"></activity>
+
+        <service
+            android:name=".service.ReplyService"
+            android:exported="false"></service>
+
+        <activity
+            android:name=".NotificationsActivity"
+            android:label="@string/title_activity_notifications"
+            android:parentActivityName=".IndexActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".IndexActivity" />
+        </activity>
+        <activity android:name=".NewActivity"></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".IndexActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".IndexActivity" />
+        </activity>
+
+        <service
+            android:name=".service.NewService"
+            android:exported="false" />
+
+        <activity android:name=".AboutActivity"
+            android:label="About"
+            android:parentActivityName=".IndexActivity">
+            <meta-data
+                android:name="android.support.Parent_Activity"
+                android:value=".IndexActivity" />
+        </activity>
     </application>
 
 </manifest>

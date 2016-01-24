@@ -18,6 +18,7 @@ public class NewActivity extends AppCompatActivity {
     EditText mTitle;
     EditText mTag;
     EditText mContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +36,8 @@ public class NewActivity extends AppCompatActivity {
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mTitle.getText().toString().length() > 0 &&
-                            mTag.getText().toString().replace("，",",").split(",").length > 0) {
+                    if (mTitle.getText().toString().length() > 0 &&
+                            mTag.getText().toString().replace("，", ",").split(",").length > 0) {
                         MarkdownProcessor mMarkdownProcessor = new MarkdownProcessor();
                         String contentHTML = mMarkdownProcessor.markdown(mContent.getText().toString());
                         Intent intent = new Intent(NewActivity.this, NewService.class);
@@ -45,7 +46,7 @@ public class NewActivity extends AppCompatActivity {
                         intent.putExtra("Content", contentHTML);
                         startService(intent);
                         onBackPressed();
-                    }else{
+                    } else {
                         Snackbar.make(view, getString(R.string.content_empty), Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
@@ -53,6 +54,7 @@ public class NewActivity extends AppCompatActivity {
             });
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

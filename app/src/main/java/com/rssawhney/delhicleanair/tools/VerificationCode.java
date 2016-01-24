@@ -21,11 +21,14 @@ import java.net.URLConnection;
  */
 public class VerificationCode {
     Context context;
-    public VerificationCode(Context context){this.context = context;}
 
-    public void loadImage(final ImageCallBack callBack){
+    public VerificationCode(Context context) {
+        this.context = context;
+    }
 
-        final Handler handler = new Handler(){
+    public void loadImage(final ImageCallBack callBack) {
+
+        final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -45,15 +48,15 @@ public class VerificationCode {
                     InputStream inputStream = null;
                     inputStream = httpURLConnection.getInputStream();
                     //获取Cookie
-                    String headerName=null;
-                    for (int i=1; (headerName = connection.getHeaderFieldKey(i))!=null; i++) {
+                    String headerName = null;
+                    for (int i = 1; (headerName = connection.getHeaderFieldKey(i)) != null; i++) {
                         if (headerName.equals("Set-Cookie")) {
                             String cookie = connection.getHeaderField(i);
                             //cookie = cookie.substring(0, cookie.indexOf(";"));
                             //String cookieName = cookie.substring(0, cookie.indexOf("="));
                             //String cookieValue = cookie.substring(cookie.indexOf("=") + 1, cookie.length());
                             //将Cookie保存起来
-                            SharedPreferences mySharedPreferences= context.getSharedPreferences("Session",
+                            SharedPreferences mySharedPreferences = context.getSharedPreferences("Session",
                                     Activity.MODE_PRIVATE);
                             SharedPreferences.Editor editor = mySharedPreferences.edit();
                             editor.putString("Cookie", cookie);
@@ -78,7 +81,7 @@ public class VerificationCode {
     }
 
 
-    public interface ImageCallBack{
+    public interface ImageCallBack {
         void getDrawable(Drawable drawable);
     }
 }
