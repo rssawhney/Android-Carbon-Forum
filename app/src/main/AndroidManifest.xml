@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rssawhney.delhicleanair" >
     package="com.rssawhney.delhicleanair">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,16 +31,16 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible">
+            android:windowSoftInputMode="adjustResize|stateVisible" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".IndexActivity" />
+                android:value="com.lincanbin.carbonforum.IndexActivity" />
         </activity>
         <activity
             android:name=".TopicActivity"
             android:label="@string/title_activity_topic"
             android:parentActivityName=".IndexActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".IndexActivity" />
@@ -48,7 +49,7 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".IndexActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".IndexActivity" />
